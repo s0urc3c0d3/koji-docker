@@ -1,0 +1,11 @@
+Koji Dockerized
+
+use docker-compose to build and run koji:
+
+docker-compose -f docker-compose.yml up
+
+For the moment we are runing only one builder however I wish to have ability to spawn more than one and add/remove them dynamically. 
+
+All sugestions patches etc are welcome
+
+Enjoy!

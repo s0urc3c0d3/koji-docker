@@ -1,0 +1,47 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: koji_postgre_admin
+  koji-web:
+    build: koji-web
+    hostname: koji.intcloud.t-mobile.pl
+    extra_hosts:
+    - "koji-hub.intcloud.t-mobile.pl:127.0.0.1"
+    - "kojiweb.intcloud.t-mobile.pl:127.0.0.1"
+    ports:
+    - "8080:80"
+    links:
+      - db
+    volumes:
+      - pki_koji:/etc/pki
+      - mnt_koji:/mnt
+  kojid:
+    build: kojid
+    hostname: kojid1.intcloud.t-mobile.pl
+    links:
+      - db
+    volumes:
+      - pki_koji:/etc/pki
+      - mnt_koji:/mnt
+  koji-cli:
+    build: koji-cli
+    hostname: kojicli.intcloud.t-mobile.pl
+    volumes:
+      - pki_koji:/etc/pki
+      - mnt_koji:/mnt
+volumes:
+  pki_koji:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /etc/pki/
+  mnt_koji:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /mnt

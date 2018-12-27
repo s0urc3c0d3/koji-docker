@@ -1,0 +1,4 @@
+#!/bin/bash
+su - kojiadmin -c 'koji add-host kojid1.intcloud.t-mobile.pl i386 x86_64'
+su - kojiadmin -c 'koji add-host-to-channel kojid1.intcloud.t-mobile.pl createrepo'
+su - kojiadmin -c 'koji edit-host --capacity=16 kojid1.intcloud.t-mobile.pl'
